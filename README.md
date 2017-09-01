@@ -77,6 +77,8 @@ TODO: type of lambdas
 
 This would probably be better done on paper first.
 
+Forget about types and stuff and just make it usable. Worry about making it "correct" later.
+
 Think long and hard about monadic vs dyadic operators.
 
 At some point in time, I want to redo all the symbols to make them "intuitive", and then make a font for beautiful, convenient typing experiences.
