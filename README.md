@@ -68,6 +68,8 @@ If you want to group really complicated executions, use indentation.
         
 Each line is evaluated on its own and used as an argument for the parent function.
 
+TODO: group by underline?
+
 
 ### TYPES
 
@@ -112,6 +114,83 @@ BUG: i.e. functions may have to accept all their arguments at once, to get aroun
 BUG: this misses some mathematical elegance, but it will likely be easier to write
 
 
+## HYPEROPERATORS
+
+"Hyperoperators" try to unite our favorite operations (succession, addition, multiplication, exponentiation...) in a nice family tree. Unfortunately, this usually ends up with very clumsy definitions that don't tend to exude the beauty in mathematics that we all strive to find. The recursive definitions are nice, but the variety of cases for `n <= 3` aren't pretty.
+For instance, note that addition only has one inverse (subtraction), but exponentiation has two inverses (roots and logarithms).
+
+The major divide between the two camps is their identities. Shifting something by 0 is no shift at all! While scaling something by 1 is no scale at all!
+
+I think a good way to conceptualize the family of arithmetic operators is to split everything into "shift" and "scale". So let's create two hyperoperators (function-generating functions) to define these two groups.
+
+TODO: https://en.wikipedia.org/wiki/Construction_of_the_real_numbers
+TODO: these are both binary relations
+TODO: FIELDS
+
+
+### SHIFT 
+
+When thinking in metric spaces, the shift operator moves the values in a space by a fixed amount.
+Imagine a graph of a constant horizontal line, and then moving the y-axis up and down as the first argument gets larger or smaller. 
+
+    shift : Number -> Number -> Number
+    
+At this point, shift is simply addition.
+
+    ≔ add 
+      shift
+
+    ≔ identity
+      shift 0
+
+    ≔ increment 
+      shift 1
+          
+    ≔ decrement
+      shift -1
+
+KLUDGE: use croak's metanotation
+
+
+### SCALE
+
+The first argument of the `scale` function determines the rate of growth.
+
+    ≔ log
+      scale -2
+
+    ≔ divide
+      scale -1
+
+    ≔ ?
+      scale 0
+
+    ≔ multiply
+      scale 1
+
+    ≔ power
+      scale 2
+
+    ≔ exponent
+      scale 2
+          
+    ≔ tetrate
+      scale 3
+      
+The remaining two arguments are degree/repeat, followed by value.
+
+Thus `λ   'x   scale 2 3 x` is equivalent to `x^3` in traditional notation.
+
+TODO: scale -2.5
+TODO: scale -1.5
+TODO: scale -0.5
+TODO: scale  0
+TODO: scale  0.5
+TODO: scale  1.5
+TODO: scale  2.5
+TODO: how to handle inverses? (`scale` with negs) and `unscale`?
+
+
 ## NOTES
 
 This would probably be better done on paper first.
@@ -125,7 +204,10 @@ Making a font shouldn't be too difficult, right?
 
 Do we want to keep `+`, `-`, `*`, `/`?
 
+Get rid of terms like "y-axis" that refer to variables that aren't bound. `y` isn't actually a thing.
+
 ### RESEARCH
 
+- https://en.wikipedia.org/wiki/Sequent_calculus
 - https://en.wikipedia.org/wiki/Simply_typed_lambda_calculus
 - https://en.wikipedia.org/wiki/Calculus_of_constructions
