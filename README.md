@@ -131,11 +131,19 @@ TODO: type of lambdas
 
 The `[` operator returns `[` until it receives the `]` operator, which is a function that takes no values.
 
-After it accepts its stop character, `[`, it returns an array of all the things that were passed into it.
+After it accepts its stop character, `]`, it returns an array of all the things that were passed into it.
+
+    ≔ myArray
+      [ 1 2 3 ]
+      
+Inline arrays are not recommended in plain-text environments. Without underlined grouping, you'll likely want to put your arrays in their own definitions.
 
 BUG: we may have to break, and use lisp-style argument lists.
 BUG: i.e. functions may have to accept all their arguments at once, to get around the stop character problem
 BUG: this misses some mathematical elegance, but it will likely be easier to write
+
+TODO: underlines may actually serve as a good way to group by syntax, arrays, tuples, and sets. I think it would be easier to write, but harder to type. This seems like a worthy trade-off.
+TODO: if they want to group things in a text editor, they can use indentation and definitions. NO PRECEDENCE
 
 ## HYPEROPERATORS
 
@@ -239,7 +247,7 @@ Include some recommendations for alternate number characters, but don't force th
 
 In a sense, the standard library defines the axioms. Don't worry about going too deep! Let everything develop organically over time.
 
-Make this into a higher-level programming language! That would be a huge "selling-point" -- computer-assisted proofs, playgrounds, easier sharing, etc.
+Make this into a higher-level programming language! That would be a huge "selling-point" -- computer-assisted proofs, type-checking/safety, playgrounds/workbooks, easier sharing, etc.
 
 
 ### RESEARCH
