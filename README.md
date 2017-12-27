@@ -92,7 +92,7 @@ If you want to group really complicated executions, use indentation.
         
 Each line is evaluated on its own and used as an argument for the parent function.
 
-TODO: group by underline?
+TODO: group by underline? underlines are the only precedence
 
 
 ### TYPES
@@ -127,7 +127,11 @@ A lambda that accepts no arguments is just a value.
 
 TODO: type of lambdas
 
+BUG: i no longer like the syntactic-sugar for multiple arguments. it's probably better to promote point-free writing, rather than bound variables
+
 ## ARRAYS
+
+Arrays are ordered sets.
 
 The `[` operator returns `[` until it receives the `]` operator, which is a function that takes no values.
 
@@ -249,6 +253,7 @@ In a sense, the standard library defines the axioms. Don't worry about going too
 
 Make this into a higher-level programming language! That would be a huge "selling-point" -- computer-assisted proofs, type-checking/safety, playgrounds/workbooks, easier sharing, etc.
 
+In editors, use "literate mathematics". Unindented is English, and indented is math. This fits nicely into existing formats like markdown.
 
 ### RESEARCH
 
