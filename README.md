@@ -1,8 +1,32 @@
 
-# CROAK
+# Croak
 
 Math notation for humans.
-    
+
+Compare against https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject .
+
+Structure like https://en.wikipedia.org/wiki/Outline_of_mathematics .
+
+## Meta
+
+## Foundations
+
+## Numbers
+
+## Structure
+
+## Space
+
+## Change
+
+## Logic
+
+## Discrete
+
+## Applied
+
+
+--------------------------------------------------------------------------------
 
 ## BASICS
 
@@ -113,7 +137,6 @@ BUG: we may have to break, and use lisp-style argument lists.
 BUG: i.e. functions may have to accept all their arguments at once, to get around the stop character problem
 BUG: this misses some mathematical elegance, but it will likely be easier to write
 
-
 ## HYPEROPERATORS
 
 "Hyperoperators" try to unite our favorite operations (succession, addition, multiplication, exponentiation...) in a nice family tree. Unfortunately, this usually ends up with very clumsy definitions that don't tend to exude the beauty in mathematics that we all strive to find. The recursive definitions are nice, but the variety of cases for `n <= 3` aren't pretty.
@@ -188,8 +211,11 @@ TODO: scale  0
 TODO: scale  0.5
 TODO: scale  1.5
 TODO: scale  2.5
-TODO: how to handle inverses? (`scale` with negs) and `unscale`?
 
+TODO: complex numbers (this will be necessary in finding the scale continuum)
+
+TODO: https://en.wikipedia.org/wiki/Equation_x%CA%B8%3Dy%CB%A3
+TODO: I REALLY like visualizing `e` this way! It's the only number that's also its own `x^y=y^x` pair. It's "caused" by the commutative nature of exponentiation.
 
 ## NOTES
 
@@ -201,10 +227,20 @@ Think long and hard about monadic vs dyadic operators.
 
 At some point in time, I want to redo all the symbols to make them "intuitive", and then make a font for beautiful, convenient typing experiences.
 Making a font shouldn't be too difficult, right?
+First play around with a 16x8-pixel character set.
 
 Do we want to keep `+`, `-`, `*`, `/`?
 
 Get rid of terms like "y-axis" that refer to variables that aren't bound. `y` isn't actually a thing.
+
+Base-12 is easier than base-10 for the human brain. Include this in the manifesto.
+
+Include some recommendations for alternate number characters, but don't force them.
+
+In a sense, the standard library defines the axioms. Don't worry about going too deep! Let everything develop organically over time.
+
+Make this into a higher-level programming language! That would be a huge "selling-point" -- computer-assisted proofs, playgrounds, easier sharing, etc.
+
 
 ### RESEARCH
 
