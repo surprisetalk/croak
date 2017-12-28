@@ -73,11 +73,11 @@ To group expressions, use spacing.
 
     =   4   + 2 2
 
-    =   identity   λ `x x
+    =   identity   λ any `x x
     
 In the above example, we showcase all three levels of grouping.
 The tightest grouping is ``x`, which is a backtick operator and the expression `x` lumped together.
-Next, we have `λ 'x x` which uses single spaces to let things breathe.
+Next, we have `λ any 'x x` which uses single spaces to let things breathe.
 Lastly, we have the entire expression, which uses triple spaces to separate each subexpression.
 
 If you want to group really complicated executions, use indentation.
@@ -86,13 +86,12 @@ If you want to group really complicated executions, use indentation.
       = 6 
         * 2 3
         
-    = true
-    | = 6 
-    | | * 2 3
-        
 Each line is evaluated on its own and used as an argument for the parent function.
 
 TODO: group by underline? underlines are the only precedence
+TODO: underlines should also be able to be used vertically. that leaves us with an analogue that can be used in type as well! which is the pipe
+TODO:   so anything right of the bar is affectively grouped with the same priority as an underline
+TODO:   so `λ reals 'x |scale 2 3 x` is equivalent to underlining the `scale 2 3 x`, because you're doing a 1-line grouping. it's equivalent to `<|` in Elm
 
 
 ### TYPES
@@ -113,19 +112,21 @@ To construct functions that contain multiple arguments, just make chains of seco
 To do this, you can use lambdas.
 
     ≔ f
-      λ `x 
-        λ `y 
-          λ `z 
-             + x 
-               y
+      λ reals `x 
+        λ reals `y 
+          λ reals `z 
+            + x 
+              y
+            
 
 Lambdas may also accept an ordered set of symbols.
 
-    =   4   λ [] 4
+    =   4   λ [] [] 4
       
 A lambda that accepts no arguments is just a value.
 
-TODO: type of lambdas
+TODO: types of lambdas
+TODO: i think it makes sense to force explicit declarations of the domain -- this will reduce errors and clear confusion
 
 BUG: i no longer like the syntactic-sugar for multiple arguments. it's probably better to promote point-free writing, rather than bound variables
 
@@ -214,7 +215,7 @@ The first argument of the `scale` function determines the rate of growth.
       
 The remaining two arguments are degree/repeat, followed by value.
 
-Thus `λ   'x   scale 2 3 x` is equivalent to `x^3` in traditional notation.
+Thus `λ reals 'x   scale 2 3 x` is equivalent to `x^3` in traditional notation.
 
 TODO: scale -2.5
 TODO: scale -1.5
@@ -228,6 +229,118 @@ TODO: complex numbers (this will be necessary in finding the scale continuum)
 
 TODO: https://en.wikipedia.org/wiki/Equation_x%CA%B8%3Dy%CB%A3
 TODO: I REALLY like visualizing `e` this way! It's the only number that's also its own `x^y=y^x` pair. It's "caused" by the commutative nature of exponentiation.
+
+### PROOFS
+
+Our modern methods of proofs are very fishy.
+Usually, it involves three operations on symbols: symbol replacement, reordering, and balanced application.
+Basically, we take some expression involving equality, and then we list out the next "result" of some undocumented operation -- and it's for the reader to figure out what happened in between the steps. Usually, this involves applying arithmetic operations to "both sides" of an equality symbol, until it gets to the point where we can rearrange the symbols and replace it with a principle/theorem/lemma elsewhere in the text -- which is also unclear unless English comments are added in between.
+
+Another major problem arises out of symbolic manipulation and arithmetic approximation/reduction. These are two VERY different things, and yet they're never explicitly talked about in any primary-, secondary-, or tertiary-level classroom.
+
+Wouldn't it be better if we made these meta-mathematical practices more explicit?
+
+    ≔ eulersIdentity
+      λ reals 'theta
+        = 
+          + 
+            cos theta
+            * i
+              sin theta
+          ^ 
+            * i theta
+            e
+             
+    assert 
+      forAll 
+        reals
+        = true
+        eulersIdentity
+        
+Notice some things that are omitted in normal maths. First of all, it's never stated what are supposed to be free variables, and what aren't. In Euler's Identity, theta is a completely different thing than e and i.
+Next, notice that people unfamiliar with Euler's Formula are aware of what is allowed as inputs! This also forces better clarity when it comes to plugging things in, and following messier proofs.
+Also notice the distinction between assignment and equality! These two are usually conflated, which leads to MUCH confusion, even among professionals. Normally , Euler's Formula would be written as a weird mixture between assignment and equality -- the first expression usually means, "This statement holds true for all the free variables (which we haven't told you) on its entire domain (which we also haven't told you)."
+Even more critically, things can't be wrong unless there's some idea of "errors" or "faults" or "failed assertions". In mathematics, this is vaguely mixed in in the assignment/equality stew. When writing out some inequality, the symbols stand on their own unless evaluated! 
+Consider the statement `x ≠ 2x`. Normally, you'd just reduce this to `x=2x;x/x=2;1≠2` and be on your merry way. This is something that wouldn't make you blink in a classroom setting. But good mathemeticians should be asking, "Is this a declaration or an assertion? Is `x` defined elsewhere, or is it a free variable? If it's a variable, what is it allowed to be?". But once you FORCE yourself to write the function, context, the bigger picture starts to become clear.
+
+    ≔ example1
+      λ reals `x
+        = x
+          * 2 x
+         
+This is JUST a function. It sits there, and although we can clearly see that the inside is going to cause problems, we can't just write it off explicitly. Because remember, this is just a function whose range is boolean.
+
+    assert
+      forAll
+        reals
+        = false
+        example1
+        
+Uh oh! This isn't exactly true. If this were a programming language, the compiler would throw an error. What's going on here?
+
+    assert
+      = true
+        example1 0
+
+    assert
+      forAll
+        except 0 reals
+        = false
+        example1
+        
+    assert 
+      = example1
+        ≠ 0
+        
+(Notice that in the last example, we're declaring the equality of two FUNCTIONS.)
+        
+Much better.
+See what I mean about clarity? It's a little fact that would've slipped through the cracks. It may seem pedantic, but these kind of errors start plague grad students in universities worldwide.
+So how do we reduce it?
+
+First of all, we have to reconcile the fact that the symbol `x` doesn't mean anything outside of the anonymous function -- it was just a placeholder in the scope of the declaration.
+If we're sticklers (which we are), we wouldn't allow you to mess with the symbols of the function after its been abstracted. This is problematic, because we want to divide both sides of the function by `x`, but we have no access to it! At this point, we can either "unabstract" the function by turning it back into a group of symbols with a replacement for `x`, OR we can map into the function. Let's do that!
+
+    ≔ example2
+      map= / example1
+
+    assert
+      = example2
+        λ reals _ 
+          = 1 2
+
+    assert
+      forAll
+        reals
+        = false
+        example2
+        
+For clarity, `map=` accepts two functions. The first gets composed into both sides of the equality in the second function. That is, the first function intercepts the argument of its target, and then accepts the body/value/image of the function as its second argument.
+
+TODO: explain how this makes "squaring both sides" errors more identifiable
+
+So let's get back to Euler.
+
+    assert
+      allEqual
+        | ^ *iπ e
+        | lhs eulersIdentity π
+        | rhs eulersIdentity π
+        | +   * i sinπ   cosπ
+        | +   * i 0      -1
+        | +       0      -1
+        |                -1
+        
+I suppose this doesn't really prove my point, so this should be taken out, but it's a nice thing to remember!
+
+At the top level, all you can do is `define` and `assert`. Nothing else. Definitions bind variables to the global scope (or throw errors). Assertions do nothing (or throw errors).
+In workbooks, writing an expression on the left without an assertion means you should "evaluate" it on the right. Or, with computers, typing an expression means it should dynamically show what's going on beside the statement.
+        
+TODO: proofs should be listed as the TRANSFORMATIONS -- not the intermediate results
+TODO:   this is most easily done as a list of composed functions. applying it to an expression should give you the final result
+TODO: induction and contradiction
+
+TODO: (in)equality equations should be treated more like tuples than mappings to bool
 
 ## NOTES
 
