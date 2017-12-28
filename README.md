@@ -1,5 +1,5 @@
 
-# Croak
+# Quack
 
 Math notation for humans.
 
@@ -185,7 +185,7 @@ At this point, shift is simply addition.
     ≔ decrement
       shift -1
 
-KLUDGE: use croak's metanotation
+KLUDGE: use quack's metanotation
 
 
 ### SCALE
@@ -323,13 +323,35 @@ So let's get back to Euler.
 
     assert
       allEqual
-        | ^ *iπ e
+        ⌠ ^ *iπ e
         | lhs eulersIdentity π
         | rhs eulersIdentity π
         | +   * i sinπ   cosπ
         | +   * i 0      -1
         | +       0      -1
         |                -1
+
+    assert
+      = 
+        map=
+          λ reals _ 
+            + 1
+          eulersIdentity
+          π
+        = + 
+            ^ *iπ e
+            1
+          0
+
+    map=
+      λ reals _ 
+        + 1
+      eulersIdentity
+      π
+    // the result of the function should be evaluated and display on the right...
+
+BUG: that last assertion is kinda useless. it just shows that "true is true". it's probably more useful, in that case, to evaluate the whole `map=` expression
+BUG: map= and lhs/rhs becomes problematic for global equations, where the body is undefined. in fact, global equations/equalities are seeming like giant headaches
         
 I suppose this doesn't really prove my point, so this should be taken out, but it's a nice thing to remember!
 
@@ -367,6 +389,8 @@ In a sense, the standard library defines the axioms. Don't worry about going too
 Make this into a higher-level programming language! That would be a huge "selling-point" -- computer-assisted proofs, type-checking/safety, playgrounds/workbooks, easier sharing, etc.
 
 In editors, use "literate mathematics". Unindented is English, and indented is math. This fits nicely into existing formats like markdown.
+
+This is going to become "Quack", and the music notation will be called "Chirp".
 
 ### RESEARCH
 
