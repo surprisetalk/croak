@@ -322,7 +322,7 @@ TODO: explain how this makes "squaring both sides" errors more identifiable
 So let's get back to Euler.
 
     assert
-      allEqual
+      allEqual?
         ⌠ ^ *iπ e
         | lhs eulersIdentity π
         | rhs eulersIdentity π
@@ -349,7 +349,7 @@ So let's get back to Euler.
       eulersIdentity
       π
     // the result of the function should be evaluated and display on the right...
-
+    
 BUG: that last assertion is kinda useless. it just shows that "true is true". it's probably more useful, in that case, to evaluate the whole `map=` expression
 BUG: map= and lhs/rhs becomes problematic for global equations, where the body is undefined. in fact, global equations/equalities are seeming like giant headaches
         
@@ -357,13 +357,79 @@ I suppose this doesn't really prove my point, so this should be taken out, but i
 
 At the top level, all you can do is `define` and `assert`. Nothing else. Definitions bind variables to the global scope (or throw errors). Assertions do nothing (or throw errors).
 In workbooks, writing an expression on the left without an assertion means you should "evaluate" it on the right. Or, with computers, typing an expression means it should dynamically show what's going on beside the statement.
+
+Let's try another example: Fourier's proof that `e` is irrational.
+
+    ≔ f
+      λ nats `n 
+        / !n 1
+        ; denominator first!
+
+    ≔ e
+      sum 0 inf f
+
+    ≔ g
+      λ nats `n 
+        / ^n2 1
+        ; denominator first!
         
+    assert true
+      ascending?
+         ⌠ = 2       Σ 0   1 f
+         | = e       Σ 0 inf f
+         | = 3 |+ 1 |Σ 0 inf g
+         
+This is actually a prime example of why we need Quack. I tried to transcribe the "spirit" of the proof on Wikipedia, and ended up still not seeing why the final result is true. I see that this proof obviously implies that `e` is not natural, but I'm having trouble seeing why it's not rational.
+I think most simple proofs could use a single assertion. To show that a number is irrational, start with the number's definition (and the number) in some equality, subsitute the number for `/ b a` and transform it until you can assert one of the numbers is not an integer (or something like that).
+
+I think the major trick is stating the assertion FIRST, and then trying to massage your definitions into a final expression that fits in your slots. Let's try another example to show that 22/7 exceeds π.
+
+    ≔ start
+      < 0 
+        ∫ 0 1
+          λ reals `x 
+            /
+              + 1 
+                ^ 2
+                  x
+              * ^ 4
+                  x
+                ^ 4
+                  - x
+                    1
+
+    assert true
+    ; < π
+    ;   / 7 22
+      >>*
+        ⌠ mapRHS
+        |   >>* 
+        |     ⌠ map∫
+        |     |  >> 
+        |     |   mapNumerator expandToPolynomial
+        |     |   polynomialLongDivision
+        |     | definiteIntegration
+        |     | arithmeticReduction
+        | map<
+        |     + π
+        start
+        
+I think this is getting much closer to what I was imagining -- the assertion contains ALL of the proof!
+I'm not sure about that weird composition thing yet, but I think I'm headed in the right direction. Non-destructive, high-level symbolic manipulations will work well if functions maintain a "symbolic opinion" of their internal representation.
+Note that the above only makes sense if `mapRHS` and `map<` don't change the VALUE of expressions -- they're onlyl allowed to rearrange symbols and rebalance things.
+
+BUG: `=` returns a boolean, not a value. maybe the `assert` symbol should accept two values and return the first if they're equal, otherwise throw an error
+
 TODO: proofs should be listed as the TRANSFORMATIONS -- not the intermediate results
 TODO:   this is most easily done as a list of composed functions. applying it to an expression should give you the final result
 TODO: induction and contradiction
 
 TODO: (in)equality equations should be treated more like tuples than mappings to bool
 
+TODO: I really don't like carrying equalities around.
+TODO:   i think it's better to just list the transformations as a composed list of functions
+TODO:     applying the steps to "both sides" should do the trick! just assert 
+        
 ## NOTES
 
 This would probably be better done on paper first.
