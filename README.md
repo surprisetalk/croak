@@ -458,6 +458,8 @@ In editors, use "literate mathematics". Unindented is English, and indented is m
 
 This is going to become "Quack", and the music notation will be called "Chirp".
 
+I think a nice plan-of-attack may be to make a K-12+ curriculum. Teach Quack how you would teach a growing student!
+
 ### RESEARCH
 
 - https://en.wikipedia.org/wiki/Sequent_calculus
