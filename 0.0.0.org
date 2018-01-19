@@ -1,0 +1,101 @@
+
+* Quack
+
+** Notation Rules
+
+** Symbols
+
+*** Meta & Environment
+    
+**** Import
+     
+**** Assert (Axiom)
+     
+**** Try / Attempt
+     
+**** Define
+     
+**** Export
+     
+**** Eval
+
+*** Functions
+
+**** Fold / Reduce
+     
+**** Chain
+     
+**** Apply
+
+**** Compose
+
+**** Flip
+     
+**** Identity
+     
+**** Map
+     
+**** Bind
+     
+*** Arrays
+    
+**** Empty Array
+    
+**** Insert
+
+**** Append / Concat
+
+**** Concat
+     
+**** Pluck / Index
+     
+**** Reverse
+     
+**** Filter
+    
+*** Sets
+    
+**** Union
+     
+**** Intersect
+     
+**** Membership
+     
+**** Subset
+     
+**** Complement
+     
+**** Powerset
+     
+**** Insert
+     
+**** Remove
+     
+**** Empty Set
+     
+*** Boolean Logic
+    
+**** And
+     
+**** Or
+     
+**** Not
+     
+**** Nand
+     
+**** Nor
+     
+**** Xor
+     
+*** Numbers
+
+**** Shift
+
+**** Scale
+
+**** Change (Calculus)
+     
+***** Rate / Derivative
+      
+***** Area / Integrate
+     
