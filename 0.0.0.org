@@ -1,24 +1,108 @@
 
 * Quack
+  
+  Conventional math notation is terrible for humans, and even worse for computers.
+  
+  TODO: symbols are narratives with radicals, like chinese
 
 ** Notation Rules
-
+   
+   TODO: functions should be verbs (or something close)
+   TODO: non-functions should be nouns
+   
+   TODO: packages/envs/documents are declaritive, ie order doesn't matter
+   
 ** Symbols
 
-*** Meta & Environment
+*** Meta
     
+    TODO: change BNF/EBNF syntax for term-rewriting
+    TODO: make the "::=" into a function hehe
+    
+*** Environment
+    
+**** Assert
+     
+     Asserts are usually used for function declarations and type descriptions.
+     We assign variables by asserting that some variable is actually the same as a function.
+     Elsewhere, we can assert that the function is only valid under particular type guidlines.
+     And in another place, we can assert that the function behaves in a different way with different types than the original declaration, if they don't contradict the type declaration.
+     
+     TODO: consider making theorems, lemmas, propositions, etc.
+     TODO:  they're all asserts, but help with organization
+     
+     TODO: also consider non-evaluating expressions for "exercises for the reader"
+     
+     TODO: assertions can be any expression that simplifies to boolean?
+     
+**** Exemplify
+     
+     This is for things that are true, but aren't important for advancing the narrative.
+     
+**** Conject
+     
+     This is for something unknown to be true, and not demanding immediate attention.
+     
+**** Query / Try
+     
+     This is for things that we want to know -- useful for interpreters and feedback.
+     
 **** Import
-     
-**** Assert (Axiom)
-     
-**** Try / Attempt
-     
-**** Define
      
 **** Export
      
+**** Comment
+    
+     TODO: consider different levels of text: published comments, for writing, and secret comments for internal notes
+     
+*** Symbolic
+    
 **** Eval
+     
+*** Equality
+    
+**** Equals
+     
+**** Is Greater Than
+     
+**** Is Less Than
+     
+**** Is No Less Than
+     
+**** Is No Greater Than
 
+*** Types
+    
+**** Classify
+     
+**** Typify
+     
+**** Types
+     
+***** Type
+      
+***** Boolean
+
+***** Float
+
+Complex (((w/wo0)(+|-)(+|-))?)
+Real (((w0/wo0)(+|-))?)
+Rational (((w0/wo0)(+|-))?)
+Natural (((1|0)(+|-))?)
+Character
+String
+Set
+Array
+Function
+Symbol
+Expression
+Maybe
+Character
+Monad
+Functor
+     
+**** Morph
+    
 *** Functions
 
 **** Fold / Reduce
@@ -39,7 +123,7 @@
      
 *** Arrays
     
-**** Empty Array
+**** Empty
     
 **** Insert
 
@@ -47,7 +131,7 @@
 
 **** Concat
      
-**** Pluck / Index
+**** Pluck / Get
      
 **** Reverse
      
@@ -55,26 +139,30 @@
     
 *** Sets
     
-**** Union
+**** Merge (Union)
      
 **** Intersect
      
-**** Membership
+**** Is Member
      
-**** Subset
+**** Is Subset
      
-**** Complement
+**** Complement of
      
-**** Powerset
+**** Powerset of
      
 **** Insert
      
 **** Remove
      
-**** Empty Set
+**** Empty
      
 *** Boolean Logic
     
+**** True
+     
+**** False
+     
 **** And
      
 **** Or
@@ -87,7 +175,13 @@
      
 **** Xor
      
+**** Implies
+     
 *** Numbers
+    
+**** e
+     
+**** π 
 
 **** Shift
 
@@ -95,7 +189,8 @@
 
 **** Change (Calculus)
      
-***** Rate / Derivative
+***** Rate of / Derivative
       
-***** Area / Integrate
+***** Area of / Integrate
      
+**** Change (Calculus)
