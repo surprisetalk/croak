@@ -4,6 +4,8 @@
   Conventional math notation is terrible for humans, and even worse for computers.
   
   TODO: symbols are narratives with radicals, like chinese
+  
+  TODO: marketing video: different desks from directly over, with different people working on a vast array of things
 
 ** Notation Rules
    
